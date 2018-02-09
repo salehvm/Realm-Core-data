@@ -68,7 +68,9 @@ class TodoListViewController: UITableViewController {
         
         
         let alert = UIAlertController(title: "Add new Item", message: "", preferredStyle: .alert)
+        
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            
          // what will happen once user click
             
           
