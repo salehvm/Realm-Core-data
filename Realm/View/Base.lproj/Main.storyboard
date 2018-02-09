@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="vj3-Qn-GHH">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="vj3-Qn-GHH">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -68,7 +68,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="xVG-7I-7XI" kind="relationship" relationship="rootViewController" id="1sq-o8-cDw"/>
+                        <segue destination="xVG-7I-7XI" kind="relationship" relationship="rootViewController" id="ek8-PI-HuG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wrH-hn-W2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -78,7 +78,7 @@
         <!--Category-->
         <scene sceneID="teg-aV-Gvj">
             <objects>
-                <tableViewController id="xVG-7I-7XI" customClass="CategoryViewController" sceneMemberID="viewController">
+                <tableViewController id="xVG-7I-7XI" customClass="CategoryViewController" customModule="Realm" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="vS2-l9-lK3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,15 +99,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Category" id="hwn-ZK-9Mh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="oCI-wW-lKx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gtI-Fe-dGb">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="addVuttonPressed:" destination="xVG-7I-7XI" id="w9G-sh-Wr8"/>
+                                <action selector="addButtonPressed:" destination="xVG-7I-7XI" id="cgU-ya-Iyt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="53o-8B-OKd" kind="show" identifier="goToItems" id="Q9F-VM-QFM"/>
+                        <segue destination="53o-8B-OKd" kind="show" identifier="goToItems" id="lBC-cv-MeJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zqe-pI-VoX" userLabel="First Responder" sceneMemberID="firstResponder"/>

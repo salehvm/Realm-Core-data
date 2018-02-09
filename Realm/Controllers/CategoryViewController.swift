@@ -12,7 +12,7 @@ import CoreData
 class CategoryViewController: UITableViewController {
 
     var categories = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+   let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     
@@ -35,9 +35,10 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-     let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell ", for: indexPath)
+     let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let item = categories[indexPath.row]
         
-        cell.textLabel?.text = categories[indexPath.row].name
+        cell.textLabel?.text = item.name
         
         return cell
     }
@@ -50,8 +51,9 @@ class CategoryViewController: UITableViewController {
     // MARK-- Data Manipulation Methods
     
     func saveCategories(){
-     
+      
         do{
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         try context.save()
         }
         catch{
@@ -63,7 +65,7 @@ class CategoryViewController: UITableViewController {
     
     func loadCategories(){
         
-        let reuqest: NSFetchRequest <Category> = Category.fetchRequest()
+        let reuqest : NSFetchRequest<Category> = Category.fetchRequest()
         do{
           categories = try context.fetch(reuqest)
         }
@@ -78,11 +80,8 @@ class CategoryViewController: UITableViewController {
     //MARK-- Add new Categories
     
 
-    
- 
 
-    @IBAction func addVuttonPressed(_ sender: UIBarButtonItem) {
-        
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
         
@@ -101,16 +100,17 @@ class CategoryViewController: UITableViewController {
             
         }
         
-        alert.addAction(action)
+        
         
         alert.addTextField { (field) in
+            field.placeholder = "Add new a category"
             textField = field
-            textField.placeholder = "Add new a category"
+            
             
         }
+        alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    
     
     
 }
