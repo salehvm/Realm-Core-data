@@ -12,13 +12,17 @@ import CoreData
 class TodoListViewController: UITableViewController {
 
     var itemArray = [Item]()
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+ 
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        loadItems()
+            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+
+    
+        loadItems()
         
         
     }
@@ -36,21 +40,18 @@ class TodoListViewController: UITableViewController {
         // value = condition ? valueiftype : valueiffalse
         cell.accessoryType = item.done ? .checkmark : .none
       
-//        if item.don == true{
-//            cell.accessoryType = .checkmark
-//        }
-//        else{
-//            cell.accessoryType = .none
-//        }
-        
+
         return cell
         
     }
     //MARK-- TableView Delegate Methods
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+//    context.delete(itemArray[indexPath.row])
+//    itemArray.remove(at: indexPath.row)
+//
    
     itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+    
     saveItems()
     
     
@@ -113,23 +114,52 @@ class TodoListViewController: UITableViewController {
         
         self.tableView.reloadData()
     }
+    //        externial  internial                         default
+    func loadItems(){
     
-//    func loadItems(){
-//        if let data = try? Data(contentsOf: dataFilePath!){
-//            let decoder = PropertyListDecoder()
-//            do{
-//            itemArray = try decoder.decode([Item].self, from: data)
-//            }
-//            catch{
-//                print("error decoding array \(error)")
-//            }
-//
-//
-//        }
-//
-//    }
-   
-    
+    let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do{
+           itemArray = try context.fetch(request)
+        }
+        catch{
+            print("error fetching from context \(error)")
+        }
+        tableView.reloadData()
+    }
+ 
     
 }
+
+//MARK-- searchbar Methods
+extension TodoListViewController: UISearchBarDelegate{
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            let request : NSFetchRequest<Item> = Item.fetchRequest()
+      let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = predicate
+
+     let sortDescriptors = NSSortDescriptor(key: "title", ascending: true)
+        request.sortDescriptors = [sortDescriptors]
+        do{
+            itemArray = try context.fetch(request)
+        }
+        catch{
+            print("error fetching from context \(error)")
+        }
+        tableView.reloadData()
+
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0{
+            loadItems()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+            
+        }
+    }
+}
+
+
+
 
